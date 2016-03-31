@@ -20,6 +20,15 @@ html
               span.icon-bar
             = link_to 'EZI', root_path, class: 'navbar-brand'
           #navbar.collapse.navbar-collapse
+            - if current_user
+              = link_to "Edit Profile", edit_user_path(current_user.id)
+              = link_to "Logout", :logout, method: :post
+            - else
+              = link_to "Register", new_user_path
+              = link_to "Login", :login
+            div
+              p#notice= flash[:notice]
+              p#alert= flash[:alert]
             ul.nav.navbar-nav
               li.active
                 = link_to 'Home', root_path
