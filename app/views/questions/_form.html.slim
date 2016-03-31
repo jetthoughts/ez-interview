@@ -1,0 +1,9 @@
+= simple_form_for(@question) do |f|
+  = f.error_notification
+  = f.input :title
+  = f.input :body
+  /= f.input :category, as: :select, collection: [1,2,3]
+  = f.input :difficulty,
+            as: :radio_buttons,
+            collection: Question.difficulties.keys
+  = f.button :submit
