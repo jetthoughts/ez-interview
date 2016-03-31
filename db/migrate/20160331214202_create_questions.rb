@@ -4,7 +4,7 @@ class CreateQuestions < ActiveRecord::Migration
       t.text :body
       t.string :title
       t.integer :difficulty, default: 0
-      # t.belongs_to :category
+      t.belongs_to :category
 
       t.timestamps null: false
     end

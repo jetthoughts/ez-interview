@@ -23,6 +23,8 @@ html
             ul.nav.navbar-nav
               li.active
                 = link_to 'Home', root_path
+              li= link_to 'Categories', categories_path
+              li= link_to 'Questions', questions_path
             ul.nav.navbar-nav.navbar-right
               - if current_user
                 li= link_to 'Edit Profile', edit_user_path(current_user.id)

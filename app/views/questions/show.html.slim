@@ -1,4 +1,8 @@
-p#notice = notice
+.jumbotron
+  - if @question.category_id
+    span.label.label-success= @question.category.name
+  .h3= @question.title
+  p= @question.body
 
 
 = link_to 'Edit', edit_question_path(@question)

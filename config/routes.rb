@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   get 'user_sessions/destroy'
 
+  resources :categories
+
   resources :questions
 
   resources :users
