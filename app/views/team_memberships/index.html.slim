@@ -1,0 +1,19 @@
+h1 Invitations
+
+table.table.table-hover
+  thead
+    tr
+      th
+      th
+      th
+      th
+      th
+
+  tbody
+    - @team_memberships.each do |team_membership|
+      tr
+        td = team_membership.team.name
+        td = link_to 'Join', join_team_membership_path(team_membership.team)
+        td = link_to 'Show', team_membership
+        td = link_to 'Edit', edit_team_membership_path(team_membership)
+        td = link_to 'Destroy', team_membership, data: {:confirm => 'Are you sure?'}, :method => :delete

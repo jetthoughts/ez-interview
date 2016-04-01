@@ -25,8 +25,16 @@ html
                 = link_to 'Home', root_path
               li= link_to 'Categories', categories_path
               li= link_to 'Questions', questions_path
+              li= link_to teams_path do
+                'Teams
+                - if @current_team
+                  '(
+                  = @current_team.name
+                  ')
             ul.nav.navbar-nav.navbar-right
               - if current_user
+                - if current_user.has_pending_invitations?
+                  li= link_to 'Invitations', team_memberships_path
                 li= link_to 'Edit Profile', edit_user_path(current_user.id)
                 li= link_to 'Logout', :logout, method: :post
               - else

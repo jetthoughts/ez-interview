@@ -6,4 +6,11 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
 
   validates :email, uniqueness: true, presence: true
+
+  has_many :team_memberships
+  has_many :teams, through: :team_memberships
+
+  def has_pending_invitations?
+    team_memberships.pending.any?
+  end
 end
