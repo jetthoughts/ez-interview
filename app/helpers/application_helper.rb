@@ -13,6 +13,9 @@ module ApplicationHelper
   end
 
   def mark_label_class(mark)
+    if !mark.is_a?(Numeric)
+      return 'label-default'
+    end
     if mark < 20
       'label-danger'
     elsif 20 < mark && mark < 40
