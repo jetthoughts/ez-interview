@@ -1,0 +1,23 @@
+h1 Interviews
+
+table
+  thead
+    tr
+      th Name
+      th Appointed at
+      th
+      th
+      th
+
+  tbody
+    - @interviews.each do |interview|
+      tr
+        td = interview.name
+        td = interview.appointed_at
+        td = link_to 'Show', interview
+        td = link_to 'Edit', edit_interview_path(interview)
+        td = link_to 'Destroy', interview, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Interview', new_interview_path

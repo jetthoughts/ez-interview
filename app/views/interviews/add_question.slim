@@ -1,0 +1,17 @@
+h3 Please, select question to add to interview for #{@interview.name}
+
+table.table
+  thead
+    tr
+      th Name
+      th Question
+      th
+  tbody
+    - @questions.each do |question|
+      tr
+        td= question.title
+        td= question.body
+        td= link_to 'Add',
+                    create_question_interview_path(@interview, question),
+                    method: :post,
+                    class: 'btn btn-success'

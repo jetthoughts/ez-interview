@@ -23,6 +23,14 @@ Rails.application.routes.draw do
 
   resources :questions
 
+  resources :interviews do
+    member do
+      get 'add_question'
+      post 'create_question/:question_id', action: :create_question, as: :create_question
+      delete 'delete_answer/:answer_id', action: :delete_answer, as: :delete_answer
+    end
+  end
+
   resources :users
 
   resources :user_sessions

@@ -11,10 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160331224634) do
+ActiveRecord::Schema.define(version: 20160401052245) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "answers", force: :cascade do |t|
+    t.integer  "question_id"
+    t.integer  "interview_id"
+    t.text     "text"
+    t.text     "comment"
+    t.float    "mark"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "answers", ["interview_id"], name: "index_answers_on_interview_id", using: :btree
+  add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -22,12 +35,28 @@ ActiveRecord::Schema.define(version: 20160331224634) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "team_memberships", force: :cascade do |t|
-    t.integer  "team_id"
-    t.integer  "user_id"
-    t.integer  "status"
+  create_table "interview_template_questions", force: :cascade do |t|
+    t.integer  "question_id"
+    t.integer  "category_id"
+    t.integer  "difficulty"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "interview_template_questions", ["category_id"], name: "index_interview_template_questions_on_category_id", using: :btree
+  add_index "interview_template_questions", ["question_id"], name: "index_interview_template_questions_on_question_id", using: :btree
+
+  create_table "interview_templates", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "interviews", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "appointed_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "questions", force: :cascade do |t|
@@ -37,6 +66,14 @@ ActiveRecord::Schema.define(version: 20160331224634) do
     t.integer  "category_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+  end
+
+  create_table "team_memberships", force: :cascade do |t|
+    t.integer  "team_id"
+    t.integer  "user_id"
+    t.integer  "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "teams", force: :cascade do |t|
@@ -55,4 +92,8 @@ ActiveRecord::Schema.define(version: 20160331224634) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  add_foreign_key "answers", "interviews"
+  add_foreign_key "answers", "questions"
+  add_foreign_key "interview_template_questions", "categories"
+  add_foreign_key "interview_template_questions", "questions"
 end
