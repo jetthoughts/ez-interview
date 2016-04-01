@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       get :join
     end
   end
+
   resources :teams do
     get :new_member
     post :create_member
@@ -11,18 +12,15 @@ Rails.application.routes.draw do
       get :switch
     end
   end
+
   root 'home#index'
 
   get 'user_sessions/new'
-
   get 'user_sessions/create'
-
   get 'user_sessions/destroy'
 
   resources :categories
-
   resources :questions
-
   resources :interviews do
     member do
       get 'add_question'
@@ -32,7 +30,6 @@ Rails.application.routes.draw do
   end
 
   resources :users
-
   resources :user_sessions
 
   get 'login' => 'user_sessions#new', :as => :login

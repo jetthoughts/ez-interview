@@ -17,7 +17,7 @@
         - question = answer.question
         tr
           td= question.title
-          td= question.body
+          td= markdown question.body
           td= answer.mark
           td= link_to 'Remove',
                   delete_answer_interview_path(@interview, answer),
