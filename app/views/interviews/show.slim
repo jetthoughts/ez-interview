@@ -1,16 +1,20 @@
-.jumbotron
+.jumbotron.big-interview
   h3
     = @interview.name
     span.small.pull-right
       span.label class="#{@interview.appointed_at.future? ? 'label-default' : 'label-danger'}"
         = l(@interview.appointed_at, format: :short)
       |&nbsp;
+      = link_to conduct_interview_path(@interview), class: 'btn btn-success btn-xs'
+        i.glyphicon.glyphicon-play
+        |&nbsp;Start Interview
+      |&nbsp;
       = link_to edit_interview_path(@interview), class: 'btn btn-primary btn-xs' do
         span.glyphicon.glyphicon-pencil
 
   - @answers.each do |answer|
     - question = answer.question
-    .panel
+    .panel class="question-#{question.difficulty}"
       .container
         .panel-body
           h4

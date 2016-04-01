@@ -25,9 +25,13 @@ br
                   br
                   = count
 
-          .panel-footer
+          .panel-footer.clearfix
             span.label class="#{interview.appointed_at.future? ? 'label-default' : 'label-danger'}"
               = l(interview.appointed_at, format: :short)
+            |&nbsp;&nbsp;
+            = link_to conduct_interview_path(interview), class: 'btn btn-success btn-xs pull-right'
+              i.glyphicon.glyphicon-play
+              |&nbsp;Start Interview
 
 
 = link_to 'Add Interview', new_interview_path, class: 'btn btn-primary'
