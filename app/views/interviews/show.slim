@@ -1,29 +1,27 @@
 .jumbotron
-  - if @interview.appointed_at.future?
-    span.label.label-success= l(@interview.appointed_at)
-  - else
-    span.label.label-danger= l(@interview.appointed_at)
-  .h3= @interview.name
+  h3
+    = @interview.name
+    span.small.pull-right
+      span.label class="#{@interview.appointed_at.future? ? 'label-default' : 'label-danger'}"
+        = l(@interview.appointed_at, format: :short)
+      |&nbsp;
+      = link_to edit_interview_path(@interview), class: 'btn btn-primary btn-xs' do
+        span.glyphicon.glyphicon-pencil
 
-  table.table
-    thead
-      tr
-        th Name
-        th Question
-        th Mark
-        th
-    tbody
-      - @answers.each do |answer|
-        - question = answer.question
-        tr
-          td= question.title
-          td= markdown question.body
-          td= answer.mark
-          td= link_to 'Remove',
-                  delete_answer_interview_path(@interview, answer),
-                  method: :delete,
-                  class: 'btn btn-danger'
+  - @answers.each do |answer|
+    - question = answer.question
+    .panel
+      .container
+        .panel-body
+          h4
+            = question.title
 
-  = link_to 'Add question', add_question_interview_path(@interview)
-  |&nbsp;|&nbsp;
-  = link_to 'Edit', edit_interview_path(@interview)
+            = link_to delete_answer_interview_path(@interview, answer),
+                      method: :delete,
+                      class: 'btn btn-danger btn-xs pull-right' do
+              span.glyphicon.glyphicon-remove
+          div = markdown question.body
+
+  h4.clearfix = link_to add_question_interview_path(@interview), class: 'btn btn-success pull-right' do
+    span.glyphicon.glyphicon-plus
+    |&nbsp;Add question

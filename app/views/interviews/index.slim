@@ -1,23 +1,32 @@
-h1 Interviews
-
-table
-  thead
-    tr
-      th Name
-      th Appointed at
-      th
-      th
-      th
-
-  tbody
-    - @interviews.each do |interview|
-      tr
-        td = interview.name
-        td = interview.appointed_at
-        td = link_to 'Show', interview
-        td = link_to 'Edit', edit_interview_path(interview)
-        td = link_to 'Destroy', interview, data: {:confirm => 'Are you sure?'}, :method => :delete
-
+h1
+  'Interviews
+  = link_to new_interview_path, class: 'btn btn-success pull-right' do
+    span.glyphicon.glyphicon-plus aria-hidden="true"
+    |&nbsp;New
 br
+- @interviews.each_slice(4) do |interviews|
+  .row
+    - interviews.each do |interview|
+      .col-sm-3.small-interview
+        .panel.panel-default
+          .panel-body
+            h4
+              = link_to interview.name, interview
+              = link_to interview, class: 'btn btn-xs btn-danger pull-right',
+                      data: {confirm:'Are you sure?'}, method: :delete do
+                span.glyphicon.glyphicon-remove
+              span.pull-right &nbsp;
+              = link_to edit_interview_path(interview), class: 'btn btn-xs btn-info pull-right' do
+                span.glyphicon.glyphicon-pencil
 
-= link_to 'New Interview', new_interview_path
+            .row.question-difficulties
+              - interview.questions_count_by_difficulty.each do |difficulty, count|
+                .col-sm-4.text-center class="#{difficulty}"
+                  br
+                  = count
+
+          .panel-footer
+            span.label class="#{interview.appointed_at.future? ? 'label-default' : 'label-danger'}"
+              = l(interview.appointed_at, format: :short)
+
+

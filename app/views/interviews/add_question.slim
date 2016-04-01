@@ -1,17 +1,18 @@
-h3 Please, select question to add to interview for #{@interview.name}
+.jumbotron
+  h3 Please, select question to add to interview for #{@interview.name}
 
-table.table
-  thead
-    tr
-      th Name
-      th Question
-      th
-  tbody
-    - @questions.each do |question|
-      tr
-        td= question.title
-        td= markdown question.body
-        td= link_to 'Add',
-                    create_question_interview_path(@interview, question),
-                    method: :post,
-                    class: 'btn btn-success'
+  - @questions.each do |question|
+    .panel
+      .container
+        .panel-body
+          h4
+            = question.title
+
+            = link_to create_question_interview_path(@interview, question),
+                      method: :post,
+                      class: 'btn btn-success pull-right' do
+              span.glyphicon.glyphicon-plus
+
+          div = markdown question.body
+
+
