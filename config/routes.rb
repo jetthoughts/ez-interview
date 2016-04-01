@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   resources :teams do
     get :new_member
     post :create_member
+    member do
+      get :switch
+    end
   end
   root 'home#index'
 

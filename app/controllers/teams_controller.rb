@@ -1,5 +1,6 @@
 class TeamsController < ApplicationController
-  before_action :set_team, only: [:show, :edit, :update, :destroy, :create_member]
+  before_action :set_team, only: [:show, :edit, :update, :destroy,
+                                  :create_member, :switch]
 
   # GET /teams
   # GET /teams.json
@@ -78,6 +79,11 @@ class TeamsController < ApplicationController
       # send invite to application
     end
     redirect_to @team
+  end
+
+  def switch
+    session[:current_team] = @team.id
+    redirect_to :back
   end
 
   private
