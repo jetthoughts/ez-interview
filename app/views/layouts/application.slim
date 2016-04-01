@@ -21,15 +21,16 @@ html
             = link_to 'EZI', root_path, class: 'navbar-brand'
           #navbar.collapse.navbar-collapse
             ul.nav.navbar-nav
+              - menu_item = current_menu_item
               li.dropdown
                 = link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' }, role: 'button' do
-                  'Menu
+                  = menu_item || 'Menu'
                   span.caret
                 ul.dropdown-menu
-                  li= link_to 'Interviews', interviews_path
-                  li= link_to 'Categories', categories_path
-                  li= link_to 'Questions', questions_path
-                  li= link_to teams_path do
+                  li class="#{'active' if menu_item == 'Interviews'}" = link_to 'Interviews', interviews_path
+                  li class="#{'active' if menu_item == 'Categories'}" = link_to 'Categories', categories_path
+                  li class="#{'active' if menu_item == 'Questions'}" = link_to 'Questions', questions_path
+                  li class="#{'active' if menu_item == 'Teams'}" = link_to teams_path  do
                     'Teams
                     - if @current_team
                       = "(#{@current_team.name})"

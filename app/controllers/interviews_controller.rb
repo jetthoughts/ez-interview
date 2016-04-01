@@ -1,4 +1,6 @@
 class InterviewsController < ApplicationController
+  self.current_menu_item = 'Interviews'
+
   before_action :set_interview, only: [:show, :edit, :update, :destroy, :add_question,
                                        :create_question, :delete_answer, :conduct, :rate_answer]
 

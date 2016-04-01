@@ -1,4 +1,6 @@
 class QuestionsController < ApplicationController
+  self.current_menu_item = 'Questions'
+
   before_action :set_question, only: [:show, :edit, :update, :destroy]
   before_action :require_team
 

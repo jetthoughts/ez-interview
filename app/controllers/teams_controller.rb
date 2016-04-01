@@ -1,4 +1,6 @@
 class TeamsController < ApplicationController
+  self.current_menu_item = 'Teams'
+
   before_action :set_team, only: [:show, :edit, :update, :destroy,
                                   :create_member, :switch]
 
