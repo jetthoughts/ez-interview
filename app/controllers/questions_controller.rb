@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :require_team
 
   # GET /questions
   # GET /questions.json
@@ -71,5 +72,13 @@ class QuestionsController < ApplicationController
 
     def question_params
       params.require(:question).permit(:title, :body, :category_id, :difficulty)
+    end
+
+    def require_team
+      if current_user.team_memberships.owner.none? && current_user.team_memberships.confirmed.none?
+        redirect_to new_team_path, flash: { notice: 'Please create or join team first' }
+      elsif !session[:current_team]
+        redirect_to teams_path, flash: { notice: 'Please choose team first'}
+      end
     end
 end

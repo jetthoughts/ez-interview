@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :require_team
 
   # GET /categories
   # GET /categories.json
@@ -70,5 +71,13 @@ class CategoriesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def category_params
       params.require(:category).permit(:name)
+    end
+
+    def require_team
+      if current_user.team_memberships.owner.none? && current_user.team_memberships.confirmed.none?
+        redirect_to new_team_path, flash: { notice: 'Please create or join team first' }
+      elsif !session[:current_team]
+        redirect_to teams_path, flash: { notice: 'Please choose team first' }
+      end
     end
 end
