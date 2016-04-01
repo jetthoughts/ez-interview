@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    meta content=('text/html; charset=UTF-8') http-equiv='Content-Type' /
     title= @page_title.presence || 'EzInterview'
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
@@ -13,7 +13,7 @@ html
       nav.navbar.navbar-inverse.navbar-static-top
         .container
           .navbar-header
-            button.navbar-toggle.collapsed aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" type="button"
+            button.navbar-toggle.collapsed aria-controls='navbar' aria-expanded='false' data-target='#navbar' data-toggle='collapse' type='button'
               span.sr-only Toggle navigation
               span.icon-bar
               span.icon-bar
@@ -30,8 +30,8 @@ html
                 li= link_to 'Edit Profile', edit_user_path(current_user.id)
                 li= link_to 'Logout', :logout, method: :post
               - else
-                li= link_to "Register", new_user_path
-                li= link_to "Login", :login
+                li= link_to 'Register', new_user_path
+                li= link_to 'Login', :login
       - if flash[:notice]
         .alert.alert-info= flash[:notice]
       - if flash[:alert]

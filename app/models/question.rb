@@ -1,5 +1,6 @@
 class Question < ActiveRecord::Base
-  enum difficulty: { low: 0, medium: 1, high: 2 }
+  DIFFICULTIES = { low: 0, medium: 1, high: 2 }
+  enum difficulty: DIFFICULTIES
 
   belongs_to :category
 
