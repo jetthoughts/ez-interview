@@ -16,7 +16,9 @@ Rails.application.routes.draw do
 
   resources :user_sessions
 
-  resources :interview_templates
+  resources :interview_templates do
+
+  end
 
   get 'login' => 'user_sessions#new', :as => :login
   post 'logout' => 'user_sessions#destroy', :as => :logout

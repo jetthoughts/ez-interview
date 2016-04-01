@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
 import { Modal, Button } from 'react-bootstrap';
+import QuestionList from '../containers/QuestionList';
 
 export default class AddQuestionModal extends React.Component {
     static propTypes = {
@@ -20,8 +21,8 @@ export default class AddQuestionModal extends React.Component {
                     <Modal.Title>Add Question</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <h4>Text in a modal</h4>
-                    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+                    <QuestionList url="/questions"
+                                  selectQuestion={this.props.addQuestion}/>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={this.props.close}>Close</Button>

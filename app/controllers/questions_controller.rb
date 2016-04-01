@@ -5,6 +5,10 @@ class QuestionsController < ApplicationController
   # GET /questions.json
   def index
     @questions = Question.all
+    respond_to do |format|
+      format.html
+      format.json { render layout: false }
+    end
   end
 
   # GET /questions/1

@@ -6,6 +6,7 @@ import AddPlaceholderModal from './AddPlaceholderModal';
 
 export default class AddQuestionButton extends React.Component {
     static propTypes = {
+        addQuestion: PropTypes.func.isRequired
     };
 
     constructor(props, context) {
@@ -20,7 +21,9 @@ export default class AddQuestionButton extends React.Component {
         this.setState({modalShown: eventKey});
     }
     
-    handleAddQuestion() {
+    handleAddQuestion(e, question) {
+        this.handleCloseModal();
+        this.props.addQuestion(question);
     }
 
     handleAddPlaceholder() {
