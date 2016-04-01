@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20160331224634) do
   create_table "team_memberships", force: :cascade do |t|
     t.integer  "team_id"
     t.integer  "user_id"
-    t.string   "status"
+    t.integer  "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

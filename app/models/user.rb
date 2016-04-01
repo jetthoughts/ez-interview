@@ -11,6 +11,6 @@ class User < ActiveRecord::Base
   has_many :teams, through: :team_memberships
 
   def has_pending_invitations?
-    team_memberships.where(status: 'pending').any?
+    team_memberships.pending.any?
   end
 end
