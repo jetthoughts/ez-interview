@@ -14,7 +14,7 @@ class InterviewTemplatesController < ApplicationController
 
   # GET /interview_templates/new
   def new
-    @interview_template = InterviewTemplate.new
+    @interview_template_form_props = { name: '', templateQuestions: [] }
   end
 
   # GET /interview_templates/1/edit

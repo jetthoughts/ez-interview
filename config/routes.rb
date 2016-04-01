@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'hello_world', to: 'hello_world#index'
   root 'home#index'
 
   get 'user_sessions/new'
@@ -14,6 +15,8 @@ Rails.application.routes.draw do
   resources :users
 
   resources :user_sessions
+
+  resources :interview_templates
 
   get 'login' => 'user_sessions#new', :as => :login
   post 'logout' => 'user_sessions#destroy', :as => :logout
