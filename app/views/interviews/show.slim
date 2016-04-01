@@ -30,7 +30,18 @@
 
             .pull-right.span.label class="#{answer.mark_label_class}"
               = answer.mark
-          div = markdown question.body
+
+          .markdown.question = markdown question.body
+
+          - if answer.text.present?
+            hr
+            span.answer Answer:
+            .markdown.answer = markdown answer.text
+
+          - if answer.comment.present?
+            hr
+            span.comment Comment:
+            .markdown.comment = markdown answer.comment
 
   h4.clearfix = link_to add_question_interview_path(@interview), class: 'btn btn-success pull-right' do
     span.glyphicon.glyphicon-plus

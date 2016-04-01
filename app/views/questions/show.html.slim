@@ -1,8 +1,8 @@
 .jumbotron
   - if @question.category_id
-    span.label.label-success= @question.category.name
+    span.label.label-success= @question.category.try(:name)
   .h3= @question.title
-  = markdown @question.body
+  .markdown = markdown @question.body
 
 
 = link_to 'Edit', edit_question_path(@question)

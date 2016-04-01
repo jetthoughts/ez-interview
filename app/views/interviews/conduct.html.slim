@@ -9,7 +9,8 @@
         = difficulty
     br
 
-  = @answer.question.body
+    h2 = @answer.question.title
+    .markdown = markdown @answer.question.body
   br
 
   = simple_form_for @answer,
