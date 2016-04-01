@@ -26,7 +26,9 @@ export default class AddQuestionButton extends React.Component {
         this.props.addQuestion(question);
     }
 
-    handleAddPlaceholder() {
+    handleAddPlaceholder(e, placeholder) {
+        this.handleCloseModal();
+        this.props.addQuestion(placeholder);
     }
     
     handleCloseModal () {
@@ -46,7 +48,7 @@ export default class AddQuestionButton extends React.Component {
                                   addQuestion={ this.handleAddQuestion }
                                   close={ this.handleCloseModal } />
                 <AddPlaceholderModal showModal={showAddPlaceholderModal}
-                                     addTemplate={ this.handleAddPlaceholder }
+                                     addPlaceholder={ this.handleAddPlaceholder }
                                      close={ this.handleCloseModal } />
             </div>
         );
