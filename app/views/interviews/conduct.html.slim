@@ -1,12 +1,18 @@
 .jumbotron
-  span.label.label-danger
-    'Difficulty
-    = @answer.question.difficulty
-  h2 = @answer.question.title
+  h3.clearfix
+    = @answer.question.title
+
+    - difficulty = @answer.question.difficulty
+    span.small.pull-right
+      span.label class="label-#{difficulty == 'low' ? 'success' : (difficulty == 'medium' ? 'warning' : 'danger')}"
+        'Difficulty
+        = difficulty
+    br
+
   = @answer.question.body
   br
 
-  = simple_form_for [@interview, @answer],
+  = simple_form_for @answer,
                     url: rate_answer_interview_path(@interview, answer_id: @answer),
                     remote: true do |f|
     = f.input :text
@@ -14,16 +20,19 @@
     = f.input :mark
     = f.button :submit
 
-
-  ul.pager
-    li
+    h3.text-center
       - if @previous_answer
-        = link_to conduct_interview_path(@interview, answer_id: @previous_answer) do
+        = link_to conduct_interview_path(@interview, answer_id: @previous_answer), class: 'btn btn-default' do
           i.glyphicon.glyphicon-chevron-left
-    li
-      = link_to interview_path do
+          |Previous
+        |&nbsp;&nbsp;
+
+      = link_to interview_path, class: 'btn btn-default' do
         i.glyphicon.glyphicon-saved
-    li
+        |&nbsp;&nbsp;Done
+
+      |&nbsp;&nbsp;
       - if @next_answer
-        = link_to conduct_interview_path(@interview, answer_id: @next_answer) do
+        = link_to conduct_interview_path(@interview, answer_id: @next_answer), class: 'btn btn-default'  do
           i.glyphicon.glyphicon-chevron-right
+          |&nbsp;&nbsp;Next
