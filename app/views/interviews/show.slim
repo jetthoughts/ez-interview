@@ -11,6 +11,8 @@
       |&nbsp;
       = link_to edit_interview_path(@interview), class: 'btn btn-primary btn-xs' do
         span.glyphicon.glyphicon-pencil
+  h4
+    = @interview.total_score
 
   - @answers.each do |answer|
     - question = answer.question
@@ -25,6 +27,9 @@
                       class: 'btn btn-danger btn-xs pull-right',
                       style: 'margin-left: 1em;' do
               span.glyphicon.glyphicon-remove
+
+            .pull-right.span.label class="#{answer.mark_label_class}"
+              = answer.mark
           div = markdown question.body
 
   h4.clearfix = link_to add_question_interview_path(@interview), class: 'btn btn-success pull-right' do
