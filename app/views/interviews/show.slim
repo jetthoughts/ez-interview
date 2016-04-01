@@ -18,7 +18,8 @@
 
             = link_to delete_answer_interview_path(@interview, answer),
                       method: :delete,
-                      class: 'btn btn-danger btn-xs pull-right' do
+                      class: 'btn btn-danger btn-xs pull-right',
+                      style: 'margin-left: 1em;' do
               span.glyphicon.glyphicon-remove
           div = markdown question.body
 

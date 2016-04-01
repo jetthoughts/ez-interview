@@ -1,5 +1,11 @@
-= simple_form_for(@interview) do |f|
-  = f.error_notification
-  = f.input :name
-  = f.input :appointed_at, as: :datetime
-  = f.button :submit
+.row
+  .col-md-3
+  .col-md-6
+    .panel.panel-primary
+      .panel-heading
+        h4= title
+      .panel-body
+        = simple_form_for(@interview) do |f|
+          = f.input :name
+          = f.input :appointed_at, as: :datetime
+          = f.button :submit, class: 'btn btn-success'
