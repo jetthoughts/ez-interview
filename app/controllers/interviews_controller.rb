@@ -1,5 +1,6 @@
 class InterviewsController < ApplicationController
-  before_action :set_interview, only: [:show, :edit, :update, :destroy, :add_question, :create_question, :delete_answer]
+  before_action :set_interview, only: [:show, :edit, :update, :destroy, :add_question,
+                                       :create_question, :delete_answer, :conduct, :rate_answer]
 
   # GET /interviews
   # GET /interviews.json
@@ -79,10 +80,35 @@ class InterviewsController < ApplicationController
     end
   end
 
+  # GET /interviews/1/process
+  def conduct
+    if params[:answer_id]
+      @answer = @interview.answers.find(params[:answer_id])
+    else
+      @answer = @interview.answers.load.first
+    end
+    index = @interview.answers.index(@answer)
+    @previous_answer = @interview.answers.at(index-1) if index > 0
+    @next_answer = @interview.answers.at(index+1) if index < @interview.answers.size - 1
+  end
+
+  # PATCH
+  def rate_answer
+    @answer = @interview.answers.find(params[:answer_id])
+    @answer.update(answer_params)
+    respond_to do |format|
+      format.json { render json: { errors: @answer.errors.full_messages } }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_interview
       @interview = Interview.find(params[:id] || params[:interview_id])
+    end
+
+    def answer_params
+      params.require(:answer).permit(:text, :comment, :mark)
     end
 
     def interview_params

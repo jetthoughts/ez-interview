@@ -1,6 +1,6 @@
 h1 Listing questions
 
-table
+table.table.table-hover
   thead
     tr
       th
@@ -14,8 +14,8 @@ table
         td = question.title
         td = link_to 'Show', question
         td = link_to 'Edit', edit_question_path(question)
-        td = link_to 'Destroy', question, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td = link_to 'Destroy', question, data: { confirm: 'Are you sure?' }, method: :delete
 
 br
 
-= link_to 'New Question', new_question_path
+= link_to 'New Question', new_question_path, class: 'btn btn-primary'

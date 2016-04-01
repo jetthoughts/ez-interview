@@ -11,5 +11,6 @@
  * file per style scope.
  *
  *= require app
+ *= require bootstrap-slider
  *= require_self
  */

@@ -45,6 +45,8 @@ GEM
     bootstrap-sass (3.3.6)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
+    bootstrap-slider-rails (6.1.6)
+      railties (>= 3.2, < 5.0)
     builder (3.2.2)
     byebug (8.2.2)
     coffee-rails (4.1.1)
@@ -182,6 +184,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap-sass
+  bootstrap-slider-rails
   byebug
   coffee-rails (~> 4.1.0)
   jbuilder (~> 2.0)

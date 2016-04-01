@@ -1,0 +1,29 @@
+.jumbotron
+  span.label.label-danger
+    'Difficulty
+    = @answer.question.difficulty
+  h2 = @answer.question.title
+  = @answer.question.body
+  br
+
+  = simple_form_for [@interview, @answer],
+                    url: rate_answer_interview_path(@interview, answer_id: @answer),
+                    remote: true do |f|
+    = f.input :text
+    = f.input :comment
+    = f.input :mark
+    = f.button :submit
+
+
+  ul.pager
+    li
+      - if @previous_answer
+        = link_to conduct_interview_path(@interview, answer_id: @previous_answer) do
+          i.glyphicon.glyphicon-chevron-left
+    li
+      = link_to interview_path do
+        i.glyphicon.glyphicon-saved
+    li
+      - if @next_answer
+        = link_to conduct_interview_path(@interview, answer_id: @next_answer) do
+          i.glyphicon.glyphicon-chevron-right
