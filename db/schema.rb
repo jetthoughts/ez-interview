@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160401052245) do
+ActiveRecord::Schema.define(version: 20161112030422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,28 +35,12 @@ ActiveRecord::Schema.define(version: 20160401052245) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "interview_template_questions", force: :cascade do |t|
-    t.integer  "question_id"
-    t.integer  "category_id"
-    t.integer  "difficulty"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "interview_template_questions", ["category_id"], name: "index_interview_template_questions_on_category_id", using: :btree
-  add_index "interview_template_questions", ["question_id"], name: "index_interview_template_questions_on_question_id", using: :btree
-
-  create_table "interview_templates", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "interviews", force: :cascade do |t|
     t.string   "name"
     t.datetime "appointed_at"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.string   "unique_id",    null: false
   end
 
   create_table "questions", force: :cascade do |t|
@@ -94,6 +78,4 @@ ActiveRecord::Schema.define(version: 20160401052245) do
 
   add_foreign_key "answers", "interviews"
   add_foreign_key "answers", "questions"
-  add_foreign_key "interview_template_questions", "categories"
-  add_foreign_key "interview_template_questions", "questions"
 end

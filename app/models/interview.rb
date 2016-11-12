@@ -1,7 +1,10 @@
 class Interview < ActiveRecord::Base
+  include ActiveRecord::SecureToken
+
   has_many :answers, dependent: :destroy
   has_many :questions, through: :answers
 
+  has_secure_token :unique_id
   validates :name, :appointed_at, presence: true
 
   def questions_count_by_difficulty

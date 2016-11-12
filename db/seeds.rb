@@ -5,6 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-user = User.create(email: 'yeezy@ez.e', password: 'ezezezez', password_confirmation: 'ezezezez')
-team = Team.create(name: 'EZteam')
-TeamMembership.create(user: user, team: team).owner!
+user = User.create!(email: 'yeezy@ez.e', password: 'ezezezez', password_confirmation: 'ezezezez')
+team = Team.create!(name: 'EZteam')
+TeamMembership.create!(user_id: user.id, team: team).owner!
+Question.create!(title: 'Question #1', body: 'Where are you from?')
+Interview.create!(name: 'Alexey Chernov', appointed_at: 4.days.from_now)
