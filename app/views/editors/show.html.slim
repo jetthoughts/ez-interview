@@ -1,0 +1,57 @@
+#ezi-editor style=""
+
+script src="#{@editor_url}/pad.js"
+
+script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js"
+  integrity="sha256-xx76EmQ2A+LP9GzPIVjY5UDJJMbR/BSiTvMWi0as4/I="
+  crossorigin="anonymous"
+
+javascript:
+  var editor = ace.edit("ezi-editor");
+  editor.setTheme("ace/theme/monokai");
+  editor.getSession().setMode("ace/mode/javascript");
+  editor.$blockScrolling = Infinity;
+
+  var eziPad = new EziPad({
+    roomId: "#{@interview.unique_id}",
+    backendUrl: "#{@editor_url}",
+    onInitialContent: function (content) {
+      editor.setValue(content, -1);
+    },
+    onTextUpdated: function (newText, transformCursor) {
+      var cursorPosition = editor.session.doc.positionToIndex(editor.selection.getCursor());
+
+      var selectionRange = editor.selection.getRange();
+      if (selectionRange.start != selectionRange.end) {
+        var selectionStartPosition = editor.session.doc.positionToIndex(selectionRange.start);
+        var selectionEndPosition = editor.session.doc.positionToIndex(selectionRange.end);
+      }
+      var scrollTop = editor.session.getScrollTop();
+
+      editor.setValue(newText, -1);
+      editor
+        .selection
+        .moveCursorToPosition(
+          editor.session.doc.indexToPosition(transformCursor(cursorPosition))
+        );
+
+      if (editor.session.getScrollTop() !== scrollTop) {
+        editor.session.setScrollTop(scrollTop);
+      }
+
+      if (selectionRange.start != selectionRange.end) {
+        editor
+          .selection
+          .setSelectionRange({
+            start: editor.session.doc.indexToPosition(transformCursor(selectionStartPosition)),
+            end: editor.session.doc.indexToPosition(transformCursor(selectionEndPosition))
+          });
+      }
+    }
+  });
+
+  editor.getSession().on('change', function (e) {
+    setTimeout(function () {
+      eziPad.updateInput(editor.getValue())
+    }, 0);
+  });

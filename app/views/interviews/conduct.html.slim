@@ -12,6 +12,8 @@
     h2 = @answer.question.title
     .markdown = markdown @answer.question.body
   br
+  = editor_url(@interview.unique_id)
+  br
 
   = simple_form_for @answer,
                     url: rate_answer_interview_path(@interview, answer_id: @answer),

@@ -89,7 +89,7 @@ class InterviewsController < ApplicationController
     else
       @answer = @interview.answers.load.first
     end
-    index = @interview.answers.index(@answer)
+    index = @interview.answers.to_a.index(@answer)
     @previous_answer = @interview.answers.at(index-1) if index > 0
     @next_answer = @interview.answers.at(index+1) if index < @interview.answers.size - 1
   end

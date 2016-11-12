@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
   resources :categories
   resources :questions
+  resources :editors, only: %i(show create)
   resources :interviews do
     member do
       get 'add_question'

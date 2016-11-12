@@ -1,0 +1,12 @@
+doctype html
+html
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    title= @page_title.presence || 'EzInterview'
+    = stylesheet_link_tag    'editor', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'editor', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  body
+    nav.navbar.navbar-inverse.navbar-static-top
+      .container
+    = yield
