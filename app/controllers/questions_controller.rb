@@ -73,7 +73,7 @@ class QuestionsController < ApplicationController
     end
 
     def question_params
-      params.require(:question).permit(:title, :body, :category_id, :difficulty)
+      params.require(:question).permit(:title, :body, :source_code, :category_id, :difficulty)
     end
 
     def require_team

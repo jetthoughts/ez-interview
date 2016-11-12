@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       post 'create_question/:question_id', action: :create_question, as: :create_question
       delete 'delete_answer/:answer_id', action: :delete_answer, as: :delete_answer
       get 'conduct'
+      post 'load_to_editor/:answer_id', action: :load_to_editor, as: :load_to_editor
       patch 'rate_answer'
     end
   end

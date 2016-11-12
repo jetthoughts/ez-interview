@@ -2,6 +2,7 @@
   = f.error_notification
   = f.input :title
   = f.input :body
+  = f.input :source_code
   = f.input :category_id, collection: @categories, value_method: :id, prompt: 'Please select category'
   = f.input :difficulty,
             as: :radio_buttons,

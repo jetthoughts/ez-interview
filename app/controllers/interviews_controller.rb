@@ -1,8 +1,7 @@
 class InterviewsController < ApplicationController
   self.current_menu_item = 'Interviews'
 
-  before_action :set_interview, only: [:show, :edit, :update, :destroy, :add_question,
-                                       :create_question, :delete_answer, :conduct, :rate_answer]
+  before_action :set_interview, except: [:index, :new]
 
   # GET /interviews
   # GET /interviews.json
@@ -92,6 +91,13 @@ class InterviewsController < ApplicationController
     index = @interview.answers.to_a.index(@answer)
     @previous_answer = @interview.answers.at(index-1) if index > 0
     @next_answer = @interview.answers.at(index+1) if index < @interview.answers.size - 1
+  end
+
+  def load_to_editor
+    @answer = @interview.answers.includes(:question).find(params[:answer_id])
+    Editor::LoadSource.new.perform(@interview.unique_id, @answer.question.source_code)
+
+    redirect_to conduct_interview_path(@interview, answer_id: @answer)
   end
 
   # PATCH

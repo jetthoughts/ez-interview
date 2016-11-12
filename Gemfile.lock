@@ -188,6 +188,7 @@ DEPENDENCIES
   bootstrap-slider-rails
   byebug
   coffee-rails
+  faraday
   jbuilder
   jquery-rails
   pg

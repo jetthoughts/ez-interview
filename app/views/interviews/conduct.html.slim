@@ -15,6 +15,11 @@
   = editor_url(@interview.unique_id)
   br
 
+  - if @answer.question.source_code.present?
+    = link_to 'Load to editor',
+            load_to_editor_interview_path(@interview, answer_id: @answer),
+            method: :post
+
   = simple_form_for @answer,
                     url: rate_answer_interview_path(@interview, answer_id: @answer),
                     remote: true do |f|
