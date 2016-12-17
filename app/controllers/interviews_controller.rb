@@ -89,15 +89,15 @@ class InterviewsController < ApplicationController
       @answer = @interview.answers.load.first
     end
     index = @interview.answers.to_a.index(@answer)
-    @previous_answer = @interview.answers.at(index-1) if index > 0
-    @next_answer = @interview.answers.at(index+1) if index < @interview.answers.size - 1
+    @previous_answer = @interview.answers.to_a.at(index-1) if index > 0
+    @next_answer = @interview.answers.to_a.at(index+1) if index < @interview.answers.size - 1
   end
 
   def load_to_editor
     @answer = @interview.answers.includes(:question).find(params[:answer_id])
-    Editor::LoadSource.new.perform(@interview.unique_id, @answer.question.source_code)
+    Editor::LoadSource.new.perform(@interview.unique_id, @answer.text.presence || @answer.question.source_code)
 
-    redirect_to conduct_interview_path(@interview, answer_id: @answer)
+    redirect_to editor_path(@interview.unique_id, answer_id: @answer.id)
   end
 
   # PATCH
@@ -109,17 +109,34 @@ class InterviewsController < ApplicationController
     end
   end
 
+  def update_answer
+    answer = @interview.answers.includes(:question).find(params[:answer_id])
+    answer_code = Editor::PullSource.new(@interview.unique_id).perform
+
+    respond_to do |format|
+      if answer.update(text: answer_code)
+        format.html { redirect_to conduct_interview_path(@interview, answer_id: answer),
+                                  notice: 'Answer was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to conduct_interview_path(@interview, answer_id: answer),
+                                  notice: 'There was error when saving the answer.' }
+        format.json { render json: answer.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_interview
-      @interview = Interview.find(params[:id] || params[:interview_id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_interview
+    @interview = Interview.find(params[:id] || params[:interview_id])
+  end
 
-    def answer_params
-      params.require(:answer).permit(:text, :comment, :mark)
-    end
+  def answer_params
+    params.require(:answer).permit(:text, :comment, :mark)
+  end
 
-    def interview_params
-      params.require(:interview).permit(:name, :appointed_at)
-    end
+  def interview_params
+    params.require(:interview).permit(:name, :appointed_at)
+  end
 end

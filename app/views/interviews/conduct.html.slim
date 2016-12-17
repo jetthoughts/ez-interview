@@ -8,23 +8,26 @@
         'Difficulty
         = difficulty
     br
+    br
 
-    h2 = @answer.question.title
     .markdown = markdown @answer.question.body
   br
-  = editor_url(@interview.unique_id)
-  br
-
-  - if @answer.question.source_code.present?
-    = link_to 'Load to editor',
-            load_to_editor_interview_path(@interview, answer_id: @answer),
-            method: :post
-
   = simple_form_for @answer,
                     url: rate_answer_interview_path(@interview, answer_id: @answer),
                     remote: true do |f|
-    = f.input :text
-    = f.input :comment
+    = f.label :text
+      | Source Code
+      |&nbsp;&nbsp;
+      = link_to load_to_editor_interview_path(@interview, answer_id: @answer),
+              method: :post,
+              target: '_blank',
+              class: 'btn btn-xs btn-primary' do
+        i.glyphicon.glyphicon-edit
+        |&nbsp;Open in Editor
+    = f.input :text,
+              label: false,
+              input_html: { value: @answer.text.presence || @answer.question.source_code, rows: '10' }
+    = f.input :comment, input_html: { rows: '4' }
     = f.input :mark
     = f.button :submit
 
