@@ -9,9 +9,13 @@ html
   body
     nav.navbar.navbar-inverse.navbar-static-top
       .navbar-header
-        - if current_user
-          = link_to 'EZI', root_path, class: 'navbar-brand'
-          = link_to 'Save Changes',
-                    update_answer_interview_path(@interview, @answer),
-                    class: 'btn btn-success navbar-btn'
+      select#mode
+      - if current_user
+        |&nbsp;&nbsp;
+        = link_to 'EZI', root_path, class: 'navbar-brand'
+        = link_to 'Run', run_source_interview_path(@interview, @answer), class: 'btn btn-success navbar-btn'
+        |&nbsp;&nbsp;
+        = link_to 'Save Changes',
+                  update_answer_interview_path(@interview, @answer),
+                  class: 'btn btn-success navbar-btn'
     = yield

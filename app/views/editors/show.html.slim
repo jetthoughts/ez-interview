@@ -5,11 +5,33 @@ script src="#{@editor_url}/pad.js"
 script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js"
   integrity="sha256-xx76EmQ2A+LP9GzPIVjY5UDJJMbR/BSiTvMWi0as4/I="
   crossorigin="anonymous"
+script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ext-modelist.js"
+  integrity="sha256-u0jPfIU/Vo5G29xghpjOhk1DXt1LtDg7GQEg7/EISss="
+  crossorigin="anonymous"
 
 javascript:
   var editor = ace.edit("ezi-editor");
+  var modelist = ace.require("ace/ext/modelist");
+  var modesByName = modelist.modesByName;
+  var modeEl = document.getElementById("mode");
+  var options = document.createDocumentFragment();
+
+  for (var mode in modesByName) {
+    var option = document.createElement('option');
+    option.innerHTML = modesByName[mode].caption;
+    option.value = mode;
+    options.appendChild(option);
+  }
+
+  modeEl.appendChild(options);
+
+  modeEl.onchange = function () {
+    editor.session.setMode(modesByName[this.value].mode || modesByName.text.mode);
+  };
+
   editor.setTheme("ace/theme/monokai");
-  editor.getSession().setMode("ace/mode/javascript");
+  modeEl.value = "#{@language}";
+  editor.getSession().setMode("ace/mode/#{@language}");
   editor.$blockScrolling = Infinity;
 
   var eziPad = new EziPad({

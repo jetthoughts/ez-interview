@@ -126,6 +126,15 @@ class InterviewsController < ApplicationController
     end
   end
 
+  def run_source
+    return if @interview.answers.find(params[:answer_id]).language != 'ruby'
+
+    answer_code = Editor::PullSource.new(@interview.unique_id).perform
+    response = Editor::RunSource.new.perform(answer_code)
+
+    head :ok
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_interview

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161112062944) do
+ActiveRecord::Schema.define(version: 20161217021456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20161112062944) do
     t.float    "mark"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.string   "language"
     t.index ["interview_id"], name: "index_answers_on_interview_id", using: :btree
     t.index ["question_id"], name: "index_answers_on_question_id", using: :btree
   end

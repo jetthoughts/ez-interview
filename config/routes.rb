@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       get 'add_question'
       get 'conduct'
       get 'update_answer/:answer_id', action: :update_answer, as: :update_answer
+      get 'run_source/:answer_id', action: :run_source, as: :run_source
 
       delete 'delete_answer/:answer_id', action: :delete_answer, as: :delete_answer
 
